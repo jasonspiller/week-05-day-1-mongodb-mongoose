@@ -1,12 +1,12 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var AuthorSchema = new Schema({
+const AuthorSchema = new Schema({
   name: String,
   alive: Boolean,
   image: String
 });
 
-var Author = mongoose.model('Author', AuthorSchema);
+const Author = mongoose.model('Author', AuthorSchema);
 
 module.exports = Author;
