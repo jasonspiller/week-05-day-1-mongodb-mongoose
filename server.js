@@ -67,10 +67,10 @@ app.post('/api/books', function (req, res) {
   // create new book with form data (`req.body`)
   console.log('books create', req.body);
   var newBook = req.body;
-  newBook._id = newBookUUID++;
-  books.push(newBook);
+	db.Book.create(newBook);
   res.json(newBook);
 });
+
 
 // update book
 app.put('/api/books/:id', function(req,res){
@@ -91,21 +91,20 @@ app.put('/api/books/:id', function(req,res){
 app.delete('/api/books/:id', function (req, res) {
   // get book id from url params (`req.params`)
   console.log('books delete', req.params);
-	db.Book.findOneAndRemovie({_id: req.params.id}, function(err, books) {
+
+	db.Book.findOneAndRemove({_id: req.params.id}, function(err, books) {
 		if (err) {
 			console.log("index error: " + err);
 			res.sendStatus(500);
 		}
-		res.json(books);
+
+		// get the id of the book to delete
+		let bookToDelete = req.params.id;
+		console.log(bookToDelete);
+
+		res.json(bookToDelete);
 	});
-  console.log('deleting book with index', deleteBookIndex);
-  // var bookToDelete = books[deleteBookIndex];
-  // books.splice(deleteBookIndex, 1);
-  res.json(bookToDelete);
 });
-
-
-
 
 
 app.listen(3000, ()=> {
